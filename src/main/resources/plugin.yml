@@ -1,0 +1,19 @@
+name: MultiDB
+version: '1.1-SNAPSHOT'
+main: tv.quaint.multidb.MultiDB
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  sync:
+    permission: "mdb.admin"
+    aliases:
+      - "msync"
+  query:
+    permission: "mdb.admin"
+    aliases:
+      - "mquery"
+  execute:
+    permission: "mdb.admin"
+    aliases:
+      - "mexecute"

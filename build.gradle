@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+group = 'tv.quaint'
+version = '0.0.0.2'
+
+repositories {
+    mavenCentral()
+    // OpenCollab
+    maven { url 'https://repo.opencollab.dev/maven-snapshots/' }
+    maven { url 'https://repo.opencollab.dev/maven-releases/'}
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://mvnrepository.com/artifact' }
+    // JitPack
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
+
+    implementation shadow("com.github.simplix-softworks:SimplixStorage:3.2.5")
+
+    compileOnly "me.clip:placeholderapi:2.11.2"
+
+    implementation shadow("net.objecthunter:exp4j:0.4.8")
+
+    implementation shadow("com.zaxxer:HikariCP:5.0.1")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+}
+
+jar.enabled = false
+shadowJar {
+    destinationDirectory  = file("$rootDir/build/libs")
+    archiveClassifier.set('')
+}
+
+artifacts {
+    archives shadowJar
+}

@@ -1,0 +1,89 @@
+# Saved hosts.
+# This is where you can store specific database configurations for use later.
+hosts:
+  # Any identifier for the host.
+  lobby1:
+    # The link to the database.
+    link: "jdbc:mysql://<host>:<port>/<database>"
+    # The username.
+    user: "user"
+    # The password.
+    pass: "pass"
+  # You can have as many as you want...
+  query1:
+    link: "jdbc:mysql://<host>:<port>/<database>"
+    user: "user"
+    pass: "pass"
+  execution1:
+    link: "jdbc:mysql://<host>:<port>/<database>"
+    user: "user"
+    pass: "pass"
+
+# Syncables are configurations to pull data from one database
+# and push it to another database.
+syncables:
+  # Identifier for the syncable.
+  votes:
+    # If the value to sync is a string.
+    is-string: false
+    # Configuration for where to pull the data from.
+    pull:
+      # What column to pull from.
+      column: "Votifier"
+      # The host to use. (Defined above -- in the 'hosts' section.)
+      host: "lobby1"
+      # The table to pull from.
+      table: "lobby1_users"
+      # The where statement.
+      where: "player_uuid = '%cmi_user_uuid%'"
+    # Configuration for where to push the data to.
+    push:
+      # What column to push to.
+      column: "Votifier"
+      # The host to use. (Defined above -- in the 'hosts' section.)
+      host: "server"
+      # The table to push to.
+      table: "cmi_users"
+      # The where statement.
+      where: "player_uuid = '%cmi_user_uuid%'"
+
+# Configuration on how often to sync the syncables (Above).
+auto-sync:
+  # In seconds.
+  every: 30
+  # If to sync on join.
+  join: true
+  # If to sync on leave.
+  leave: true
+
+# Your set-up queries.
+queries:
+  # Identifier.
+  votes:
+    # Host to use. (Defined above.)
+    host: "query1"
+    # The SQL statement to execute a query on.
+    sql: "select Votifer from lobby1_users where username = '%arg1%'"
+
+# Your set-up executions.
+executions:
+  # Identifier.
+  create-tables:
+    # Host to use. (Defined above.)
+    host: "execution1"
+    # The SQL statement to execute.
+    sql: "create table if not exists `mysqlb_values` ( `identifier` varchar(64) primary key not null, `myValues` varchar(64) )"
+
+# The returned values given the condition.
+values:
+  # If the value is not set it will return...
+  not-set-yet: "Not Set"
+  # If there was an error it will return...
+  error: "Error"
+  # If there was no statement set it will return...
+  no-query: "No Query"
+
+# How often to void the connections to your hosts and reconnect.
+resync:
+  # In seconds.
+  every: 60
